@@ -32,6 +32,19 @@ app.get("/search",(req, res)=>{
         })  
     }
 })
+app.get("/random",(req, res)=>{
+    const {term} = req.query;
 
+    if(!term){
+        res.render("random.hbs",{error: "Provide valid term"})
+    } 
+    else{
+        tenorjs.Search.Random(term,'6').then(Results =>{
+            console.log(Results)
+            res.render("random.hbs", {GIFs: Results});     
+        })  
+    }
+
+})
 
 app.listen(5000,()=> console.log("Running on 5000"))
