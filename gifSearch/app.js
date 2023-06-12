@@ -28,7 +28,10 @@ app.get("/search",(req, res)=>{
     else{
         tenorjs.Search.Query(term,'50').then(Results =>{
             console.log(Results)
-            res.render("search.hbs", {GIFs: Results});     
+            tenorjs.Suggest.Suggestions(term).then(Suggestion => {
+            res.render("search.hbs", {GIFs: Results, suggestion: Suggestion});
+          })
+                 
         })  
     }
 })
